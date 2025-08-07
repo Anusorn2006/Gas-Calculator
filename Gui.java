@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Gui06 {
+public class Gui {
     public static void main(String[] args) {
 
         // ==================== 1. การตั้งค่าหน้าต่างหลัก ====================
@@ -251,4 +251,5 @@ public class Gui06 {
         frame.add(panel, BorderLayout.CENTER);
         frame.setVisible(true);
     }
+
 }
