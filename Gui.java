@@ -8,6 +8,7 @@ public class Gui {
         JFrame frame = new JFrame("Gas Calculator");
         frame.setSize(800, 600);
         frame.setLayout(new BorderLayout());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // ==================== 2. การกำหนดฟอนต์และสี ====================
         Font font1 = new Font("Tohoma", Font.BOLD, 15);    // ฟอนต์เล็ก
@@ -52,9 +53,30 @@ public class Gui {
 
 
         for (int i = 0; i < 200; i++) {
+
+            ReadAndCal cal = new ReadAndCal();
             Button button = new Button();
-            // คำนวณค่าปริมาตร (sum) และเปอร์เซ็นต์ของแก๊ส (gaspercent)
+            int[] sumv = cal.getSumv();
+            int[] gasper = cal.getGasper();
+
+            String data = gasper[i] + "," + sumv[i] + "," + i;
+            button.setName(data);
+
+                if (gasper[i] < 50 && gasper[i] > 0)
+                {
+                    button.setBackground(new Color(255, 255,0 ));
+
+                }
+                else if (gasper[i] > 50)
+                {
+                    button.setBackground(new Color(0, 255, 0));
+                }else
+                {
+                    button.setBackground(new Color(255, 0, 0));
+                }
             Table.add(button);
+            // คำนวณค่าปริมาตร (sum) และเปอร์เซ็นต์ของแก๊ส (gaspercent)
+
         }
 
         // ==================== 6. แถบควบคุม (Control Panel) ====================
@@ -250,6 +272,6 @@ public class Gui {
         // แสดงผล
         frame.add(panel, BorderLayout.CENTER);
         frame.setVisible(true);
+        
     }
-
 }
