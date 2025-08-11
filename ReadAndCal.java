@@ -1,19 +1,29 @@
+
 import java.io.*;
 
 public class ReadAndCal {
 
+
+//    private JTextField filenameField;
+//    ChooseFileActionListener file = new ChooseFileActionListener(filenameField);
+//    Fluid fluidnumber = new Fluid(new JTextField());
+
+//    int fluid = fluidnumber.getFluidnumber();
+//    String filepath = file.getFilepath();
+
     // สร้างอาเรย์เพื่อเก็บผลลัพธ์
     private int[] sumv;
-    private int[] gasper;
+    private double[] gasper;
 
     int btred = 0;
     int btyellow = 0;
     int btgreen = 0;
 
     // Constructor สำหรับการคำนวณและเก็บผลลัพธ์
-    ReadAndCal() {
+    public void startCalculation(String filepath, int fluid) {
         try {
-            BufferedReader bfd = new BufferedReader(new FileReader("dept.txt"));
+
+            BufferedReader bfd = new BufferedReader(new FileReader(filepath));
 
             String str = "";
             for (; ; ) {
@@ -30,19 +40,19 @@ public class ReadAndCal {
 
             // สร้างอาเรย์เพื่อเก็บผลลัพธ์
             sumv = new int[Number.length];    // อาเรย์เก็บค่าปริมาตร (sum)
-            gasper = new int[Number.length];  // อาเรย์เก็บค่า gaspercent (เปอร์เซ็นต์ของแก๊ส)
+            gasper = new double[Number.length];  // อาเรย์เก็บค่า gaspercent (เปอร์เซ็นต์ของแก๊ส)
 
 
 
             // คำนวณและเก็บผลลัพธ์ในอาเรย์
             for (int i = 0; i < Number.length; i++) {
                 num[i] = Integer.parseInt(Number[i]);  // แปลงค่าจาก String เป็น int
-                int sum = 150 * 150 * (2500 - (num[i] - 200)); // คำนวณ sum
-                double gaspercent = (sum / area) * 100; // คำนวณ gaspercent
+                int sum = 150 * 150 * (fluid - (num[i] - 200)); // คำนวณ sum
+                double gaspercent = ((double) sum / area) * 100; // คำนวณ gaspercent
 
                 // เก็บผลลัพธ์ในอาเรย์
                 sumv[i] = sum;
-                gasper[i] = (int) gaspercent; // แปลงค่า gaspercent เป็น int เพื่อเก็บในอาเรย์
+                gasper[i] =  gaspercent; // แปลงค่า gaspercent เป็น int เพื่อเก็บในอาเรย์
 
                 if (gasper[i] < 50 && gasper[i] > 0)
                 {
@@ -55,6 +65,10 @@ public class ReadAndCal {
                 {
                     btred++;
                 }
+
+                System.out.println(sumv[i] + "\n" + gasper[i]);
+
+
             }
 
         } catch (FileNotFoundException e) {
@@ -70,7 +84,7 @@ public class ReadAndCal {
     }
 
     // Getter สำหรับ gasper[] (เปอร์เซ็นต์ของแก๊ส)
-    public int[] getGasper() {
+    public double[] getGasper() {
         return gasper;
     }
 
@@ -83,7 +97,5 @@ public class ReadAndCal {
     public int getBtgreen() {
         return btgreen;
     }
-
-
 
 }

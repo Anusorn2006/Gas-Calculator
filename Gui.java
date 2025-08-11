@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 public class Gui {
     public static void main(String[] args) {
@@ -20,20 +23,26 @@ public class Gui {
         // Color(255,254,0) - สีเหลือง (แก๊สน้อยกว่า 50%)
         // Color(0,255,0) - สีเขียว (แก๊สมากกว่า 50%)
 
+        ReadAndCal readAndCal = new ReadAndCal();
+
         // ==================== 3. Layout และ Panel Structure ====================
         JPanel panel = new JPanel(new BorderLayout());
 
         // สร้าง Panel เว้นระยะห่างรอบๆ
-        JPanel edgeN = new JPanel(); edgeN.setBackground(new Color(149, 149, 149));
-        JPanel edgeS = new JPanel(); edgeS.setBackground(new Color(149, 149, 149));
-        JPanel edgeW = new JPanel(); edgeW.setBackground(new Color(149, 149, 149));
-        JPanel edgeE = new JPanel(); edgeE.setBackground(new Color(149, 149, 149));
+        JPanel edgeN = new JPanel();
+        edgeN.setBackground(new Color(149, 149, 149));
+        JPanel edgeS = new JPanel();
+        edgeS.setBackground(new Color(149, 149, 149));
+        JPanel edgeW = new JPanel();
+        edgeW.setBackground(new Color(149, 149, 149));
+        JPanel edgeE = new JPanel();
+        edgeE.setBackground(new Color(149, 149, 149));
 
         JPanel panel1 = new JPanel(new BorderLayout());
 
         // ==================== 4. ส่วนหัว (Header) ====================
         JLabel namePj = new JLabel("Gas Calculator", JLabel.CENTER);
-        namePj.setPreferredSize(new Dimension(0,100));
+        namePj.setPreferredSize(new Dimension(0, 100));
         namePj.setFont(font); // ใช้ฟอนต์ขนาด 100
 
 //        JPanel panel1N = new JPanel();
@@ -43,83 +52,136 @@ public class Gui {
         JPanel panelTable = new JPanel(new BorderLayout());
 
         // Panel เว้นระยะห่างรอบตาราง
-        JPanel TableN = new JPanel(); TableN.setBackground(new Color(149, 149, 149));
-        JPanel TableS = new JPanel(); TableS.setBackground(new Color(149, 149, 149));
-        JPanel TableE = new JPanel(); TableE.setBackground(new Color(149, 149, 149));
+        JPanel TableN = new JPanel();
+        TableN.setBackground(new Color(149, 149, 149));
+        JPanel TableS = new JPanel();
+        TableS.setBackground(new Color(149, 149, 149));
+        JPanel TableE = new JPanel();
+        TableE.setBackground(new Color(149, 149, 149));
 
         // สร้างตารางกริด 10x20 = 200 ปุ่ม
         JPanel TableC = new JPanel(new BorderLayout());
         JPanel Table = new JPanel(new GridLayout(10, 20));
 
+        JButton []buttons = new JButton[200];
+        String []strV = {"---"};    // ค่าปริมาตร
+        String []strPer = {"---"} ;  // ค่าเปอร์เซ็นต์
+
+        JPanel VolumeOrarea = new JPanel(new GridLayout(2, 1));
+        JPanel volume = new JPanel(new GridLayout(1, 2));
+
+
+        JLabel textVolume = new JLabel("Volume : "+ strV[0] , JLabel.CENTER);
+        JLabel textgas = new JLabel("Percen : " + "  " + strPer[0] + " %", JLabel.CENTER);
 
         for (int i = 0; i < 200; i++) {
+            buttons[i] = new JButton();
+            buttons[i].setActionCommand(i + "");
 
-            ReadAndCal cal = new ReadAndCal();
-            Button button = new Button();
-            int[] sumv = cal.getSumv();
-            int[] gasper = cal.getGasper();
+            buttons[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        int[] sumv = readAndCal.getSumv();
+                        double[] gasper = readAndCal.getGasper();
 
-            String data = gasper[i] + "," + sumv[i] + "," + i;
-            button.setName(data);
+                        // ดึงค่าของ index จาก actionCommand
+                        int index = Integer.parseInt(e.getActionCommand());
 
-                if (gasper[i] < 50 && gasper[i] > 0)
-                {
-                    button.setBackground(new Color(255, 255,0 ));
+                        // แสดงค่าใน console
+                        System.out.println(sumv[index] + " " + gasper[index]);
+
+                        // อัพเดตค่า strV
+                        strV[0] = String.valueOf(sumv[index]);
+                        strPer[0] = String.format("%.2f", gasper[index]);
+
+
+                        textVolume.setText("Volume : " + strV[0]);
+                        textgas.setText("Percent : " + strPer[0] + " %");
+                    }catch (NullPointerException ex){
+
+                    }
 
                 }
-                else if (gasper[i] > 50)
-                {
-                    button.setBackground(new Color(0, 255, 0));
-                }else
-                {
-                    button.setBackground(new Color(255, 0, 0));
-                }
-            Table.add(button);
-            // คำนวณค่าปริมาตร (sum) และเปอร์เซ็นต์ของแก๊ส (gaspercent)
+            });
 
+            // เพิ่มปุ่มไปยังตาราง (panel หรือ grid)
+            Table.add(buttons[i]);
         }
+
 
         // ==================== 6. แถบควบคุม (Control Panel) ====================
         JPanel controlTable = new JPanel(new BorderLayout());
         controlTable.setPreferredSize(new Dimension(0, 100));
 
-        // ปุ่ม Start ตรงกลาง
-        JPanel CTableS1N = new JPanel();
-        CTableS1N.setBackground(new Color(149, 149, 149));
-        JButton CTableS1C = new JButton("Start");
-        CTableS1C.setFont(font1);
+
 
         // ส่วนเลือกไฟล์ (ด้านซ้าย)
-        JPanel CTableS1W = new JPanel(new GridLayout(2,1));
-        JTextField textFile = new JTextField("File.txt");
+        JPanel CTableS1W = new JPanel(new GridLayout(2, 1));
+        JTextField filename = new JTextField("File.txt");
         JButton chooseFile = new JButton("Choose File");
-        CTableS1W.add(textFile);
+        ChooseFileActionListener cfal = new ChooseFileActionListener(filename);
+        chooseFile.addActionListener(cfal);
+//        chooseFile.addActionListener(new ChooseFileActionListener(filename));
+        CTableS1W.add(filename);
         CTableS1W.add(chooseFile);
-        CTableS1W.setPreferredSize(new Dimension(500,0));
+        CTableS1W.setPreferredSize(new Dimension(500, 0));
 
         // ส่วนตั้งค่าของเหลว (ด้านขวา)
         JPanel CTableS1E = new JPanel(new GridLayout(2, 1));
         JTextField textfluid = new JTextField("depth");
         JButton inputfluid = new JButton("Set Fluid");
+        Fluid fluid = new Fluid(textfluid);
+        inputfluid.addMouseListener(fluid);
         CTableS1E.add(textfluid);
         CTableS1E.add(inputfluid);
-        CTableS1E.setPreferredSize(new Dimension(500,0));
+        CTableS1E.setPreferredSize(new Dimension(500, 0));
+
+
+        // ปุ่ม Start ตรงกลาง
+        JPanel CTableS1N = new JPanel();
+        CTableS1N.setBackground(new Color(149, 149, 149));
+        JButton start = new JButton("Start");
+
+
+        start.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    readAndCal.startCalculation(cfal.getFilepath(), fluid.getFluidnumber());
+                    VolumeColor color = new VolumeColor();
+                    double[] gasper = readAndCal.getGasper();
+                    for (int i = 0; i < buttons.length; i++) {
+                        buttons[i].setBackground(color.setColor((int) gasper[i]));
+
+                    }
+                }catch (NullPointerException ex){
+                    JFrame frame = new JFrame();
+                    frame.setSize(300, 150);
+                    frame.setLocationRelativeTo(null);
+                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                    JLabel label = new JLabel("Please input file", JLabel.CENTER);
+                    frame.add(label);
+                    frame.setVisible(true);
+
+                }
+            }
+        });
+
+
+        start.setFont(font1);
 
         // ==================== 7. แผงสรุปผล (Summary Panel) ====================
         JPanel panelSummary = new JPanel(new BorderLayout());
-        panelSummary.setPreferredSize(new Dimension(300,0));
+        panelSummary.setPreferredSize(new Dimension(300, 0));
 
         // 7.1 ส่วนแสดงค่าปริมาตรและเปอร์เซ็นต์
         JPanel panelSummary1N = new JPanel(new BorderLayout());
         panelSummary1N.setPreferredSize(new Dimension(0, 250));
 
-        String strV = "----";    // ค่าปริมาตร
-        String strPer = "----";  // ค่าเปอร์เซ็นต์
-        JPanel VolumeOrarea = new JPanel(new GridLayout(2,1));
 
-        JPanel volume = new JPanel(new GridLayout(1, 2));
-        JLabel textVolume = new JLabel("Volume" + "  " + strV, JLabel.CENTER);
-        JLabel textgas = new JLabel("Percen" + "  " + strPer +" %", JLabel.CENTER);
+
 
 
         // 7.2 ส่วนแสดงเปอร์เซ็นต์ของพื้นที่
@@ -135,10 +197,14 @@ public class Gui {
         Button color = new Button();
 
         // Panel เว้นระยะห่างรอบปุ่มสี
-        JPanel spacecolN = new JPanel(); spacecolN.setPreferredSize(new Dimension(0, 30));
-        JPanel spacecolS = new JPanel(); spacecolS.setPreferredSize(new Dimension(0, 30));
-        JPanel spacecolW = new JPanel(); spacecolW.setPreferredSize(new Dimension(20, 0));
-        JPanel spacecolE = new JPanel(); spacecolE.setPreferredSize(new Dimension(20, 0));
+        JPanel spacecolN = new JPanel();
+        spacecolN.setPreferredSize(new Dimension(0, 30));
+        JPanel spacecolS = new JPanel();
+        spacecolS.setPreferredSize(new Dimension(0, 30));
+        JPanel spacecolW = new JPanel();
+        spacecolW.setPreferredSize(new Dimension(20, 0));
+        JPanel spacecolE = new JPanel();
+        spacecolE.setPreferredSize(new Dimension(20, 0));
 
         // ==================== 8. คำอธิบายระบบสี (Color Legend) ====================
         JPanel panelSummary1C = new JPanel(new BorderLayout());
@@ -157,12 +223,12 @@ public class Gui {
 
         // ปุ่มแสดงสีตัวอย่าง
         Panel CSummary1W = new Panel(new GridLayout(3, 1));
-        CSummary1W.setPreferredSize(new Dimension(100,0));
+        CSummary1W.setPreferredSize(new Dimension(100, 0));
 
         // สีแดง - ไม่มีแก๊ส
         Panel CSummary1WR = new Panel(new BorderLayout());
         JButton space1C = new JButton();
-        space1C.setBackground(new Color(255,0,0));
+        space1C.setBackground(new Color(255, 0, 0));
         JPanel space1N = new JPanel();
         JPanel space1S = new JPanel();
         JPanel space1W = new JPanel();
@@ -171,7 +237,7 @@ public class Gui {
         // สีเหลือง - แก๊สน้อยกว่า 50%
         JPanel CSummary1WY = new JPanel(new BorderLayout());
         JButton space2C = new JButton();
-        space2C.setBackground(new Color(255,254,0));
+        space2C.setBackground(new Color(255, 254, 0));
         JPanel space2N = new JPanel();
         JPanel space2S = new JPanel();
         JPanel space2W = new JPanel();
@@ -180,7 +246,7 @@ public class Gui {
         // สีเขียว - แก๊สมากกว่า 50%
         JPanel CSummary1WG = new JPanel(new BorderLayout());
         JButton space3C = new JButton();
-        space3C.setBackground(new Color(0,255,0));
+        space3C.setBackground(new Color(0, 255, 0));
         JPanel space3N = new JPanel();
         JPanel space3S = new JPanel();
         JPanel space3W = new JPanel();
@@ -195,7 +261,7 @@ public class Gui {
         panelTable.add(TableE, BorderLayout.EAST);
 
         // จัดวางแถบควบคุม
-        controlTable.add(CTableS1C, BorderLayout.CENTER);
+        controlTable.add(start, BorderLayout.CENTER);
         controlTable.add(CTableS1N, BorderLayout.NORTH);
         controlTable.add(CTableS1W, BorderLayout.WEST);
         controlTable.add(CTableS1E, BorderLayout.EAST);
@@ -248,12 +314,18 @@ public class Gui {
         panelSummary1C.add(CSummary1W, BorderLayout.WEST);
 
         panelSummary1N.add(VolumeOrarea, BorderLayout.CENTER);
-        panelSummary1N.add(new JPanel(){{setBackground(new Color(149, 149, 149));}}, BorderLayout.NORTH);
-        panelSummary1N.add(new JPanel(){{setBackground(new Color(149, 149, 149));}}, BorderLayout.SOUTH);
+        panelSummary1N.add(new JPanel() {{
+            setBackground(new Color(149, 149, 149));
+        }}, BorderLayout.NORTH);
+        panelSummary1N.add(new JPanel() {{
+            setBackground(new Color(149, 149, 149));
+        }}, BorderLayout.SOUTH);
 
         panelSummary.add(panelSummary1C, BorderLayout.CENTER);
         panelSummary.add(panelSummary1N, BorderLayout.NORTH);
-        panelSummary.add(new JPanel(){{setBackground(new Color(149, 149, 149));}}, BorderLayout.SOUTH);
+        panelSummary.add(new JPanel() {{
+            setBackground(new Color(149, 149, 149));
+        }}, BorderLayout.SOUTH);
         panelSummary.add(new JPanel(), BorderLayout.EAST);
 
         // รวม Panel หลักทั้งหมด
@@ -272,6 +344,17 @@ public class Gui {
         // แสดงผล
         frame.add(panel, BorderLayout.CENTER);
         frame.setVisible(true);
-        
+        //-------------------------------------------
     }
-}
+} //กดปุ่มจะเด้งไปที่เม๊ดต๊อด loadFile()
+
+
+
+
+
+
+
+
+
+
+
