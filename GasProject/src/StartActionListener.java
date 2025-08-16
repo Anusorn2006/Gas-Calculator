@@ -34,7 +34,7 @@ public class StartActionListener implements ActionListener {
         // เรียกคำนวณ
         readAndCal.startCalculation(filepath, fluid);
 
-// ดึงค่า gasper
+        // ดึงค่า gasper
         double[] gasper = readAndCal.getGasper();
 
         // เปลี่ยนสีของปุ่มใน Gui

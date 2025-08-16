@@ -1,4 +1,5 @@
 
+import javax.swing.*;
 import java.io.*;
 
 public class ReadAndCal {
@@ -48,6 +49,7 @@ public class ReadAndCal {
                 }
                 else if (gaspercent < 0){
                     gaspercent = 0;
+                    sum = 0;
                 }
 
                 // เก็บผลลัพธ์ในอาเรย์
