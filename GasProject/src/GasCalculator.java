@@ -161,7 +161,8 @@ public class GasCalculator {
         JPanel CTableS1N = new JPanel();
         CTableS1N.setBackground(new Color(149, 149, 149));
         JButton start = new JButton("Start");
-        start.setBackground(new Color(0, 221, 167));
+        start.setBackground(new Color(117, 117, 117));
+        start.setForeground(new Color(255, 255, 255));
         start.addActionListener(new StartActionListener(readFile, setFluid, calculator, buttonVolume));
         start.setFont(font1);
 
@@ -174,9 +175,6 @@ public class GasCalculator {
         panelSummary1N.setPreferredSize(new Dimension(0, 250));
 
 
-
-
-
         // 7.2 ส่วนแสดงเปอร์เซ็นต์ของพื้นที่
         JPanel Ofarea = new JPanel(new BorderLayout());
         JPanel edgesum = new JPanel();
@@ -184,7 +182,8 @@ public class GasCalculator {
 
         //========= credit ========
         JButton buttoncredit = new JButton("Credit");
-        buttoncredit.setBackground(new Color(78, 226, 236));
+        buttoncredit.setBackground(new Color(255, 69, 0));
+         buttoncredit.setForeground(new Color(255, 255, 255));
         buttoncredit.setFont(font1);
         buttoncredit.addActionListener(new credit());
 
@@ -306,7 +305,6 @@ public class GasCalculator {
 
         // รวม Panel หลักทั้งหมด
         panel1.add(panelTable, BorderLayout.CENTER);
-//        panel1.add(panel1N, BorderLayout.NORTH);
         panel1.add(namePj, BorderLayout.NORTH);
         panel1.add(panelSummary, BorderLayout.EAST);
 

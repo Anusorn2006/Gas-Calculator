@@ -46,21 +46,6 @@ public class ReadAndCal {
                 sumv[i] = sum;
                 gasper[i] =  gaspercent; // แปลงค่า gaspercent เป็น int เพื่อเก็บในอาเรย์
 
-                if (gasper[i] < 50 && gasper[i] > 0)
-                {
-                    btyellow++;
-                }
-                else if (gasper[i] > 50)
-                {
-                    btgreen++;
-                }else
-                {
-                    btred++;
-                }
-
-                System.out.println(sumv[i] + "\n" + gasper[i]);
-
-
             }
 
         } catch (FileNotFoundException e) {
@@ -78,16 +63,6 @@ public class ReadAndCal {
     // Getter สำหรับ gasper[] (เปอร์เซ็นต์ของแก๊ส)
     public double[] getGasper() {
         return gasper;
-    }
-
-    public int getBtred() {
-        return btred;
-    }
-    public int getBtyellow() {
-        return btyellow;
-    }
-    public int getBtgreen() {
-        return btgreen;
     }
 
 }
