@@ -3,18 +3,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class StartActionListener implements ActionListener {
-    private ReaderFile readerFile;
+    private Choosefile readerFile;
     private SetFluidActionListener setFluid;
     private ReadAndCal readAndCal;
     private ButtonVolume buttonVolume;
 
 
-    public StartActionListener(ReaderFile readerFile, SetFluidActionListener setFluid, ReadAndCal readAndCal, ButtonVolume buttonVolume) {
+    public StartActionListener(Choosefile readerFile, SetFluidActionListener setFluid, ReadAndCal readAndCal, ButtonVolume buttonVolume) {
         this.readerFile = readerFile;
         this.setFluid = setFluid;
         this.readAndCal = readAndCal;
         this.buttonVolume = buttonVolume;
-
     }
 
     @Override

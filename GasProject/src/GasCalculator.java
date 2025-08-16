@@ -38,6 +38,7 @@ public class GasCalculator {
 
         // ====================  ส่วนหัว (Header) ====================
         JLabel namePj = new JLabel("Gas Calculator", JLabel.CENTER);
+        namePj.setForeground(new Color(86,86,86));
         namePj.setPreferredSize(new Dimension(0, 100));
         namePj.setFont(font); // ใช้ฟอนต์ขนาด 100
 
@@ -117,7 +118,7 @@ public class GasCalculator {
         JTextField filename = new JTextField("File.txt");
         JButton chooseFile = new JButton("Choose File");
         chooseFile.setBackground(new Color(214, 214, 214));
-        ReaderFile readFile = new ReaderFile(filename);
+        Choosefile readFile = new Choosefile(filename);
 
         chooseFile.addActionListener(e -> {
 
@@ -166,16 +167,16 @@ public class GasCalculator {
         start.addActionListener(new StartActionListener(readFile, setFluid, calculator, buttonVolume));
         start.setFont(font1);
 
-        // ==================== 7. แผงสรุปผล (Summary Panel) ====================
+        // ==================== แผงสรุปผล (Summary Panel) ====================
         JPanel panelSummary = new JPanel(new BorderLayout());
         panelSummary.setPreferredSize(new Dimension(300, 0));
 
-        // 7.1 ส่วนแสดงค่าปริมาตรและเปอร์เซ็นต์
+        //  ส่วนแสดงค่าปริมาตรและเปอร์เซ็นต์
         JPanel panelSummary1N = new JPanel(new BorderLayout());
         panelSummary1N.setPreferredSize(new Dimension(0, 250));
 
 
-        // 7.2 ส่วนแสดงเปอร์เซ็นต์ของพื้นที่
+        //  ส่วนแสดงเปอร์เซ็นต์ของพื้นที่
         JPanel Ofarea = new JPanel(new BorderLayout());
         JPanel edgesum = new JPanel();
         edgesum.setBackground(new Color(149, 149, 149));
@@ -189,7 +190,7 @@ public class GasCalculator {
 
 
 
-        // ==================== 8. คำอธิบายระบบสี (Color Legend) ====================
+        // ====================  คำอธิบายระบบสี (Color Legend) ====================
         JPanel panelSummary1C = new JPanel(new BorderLayout());
         JPanel CSummary1C = new JPanel(new GridLayout(3, 1));
 
@@ -275,7 +276,6 @@ public class GasCalculator {
         CSummary1WG.add(space3E, BorderLayout.EAST);
         CSummary1W.add(CSummary1WG);
 
-
         // volume และ percen
         volume.add(textVolume);
         volume.add(textgas);
@@ -320,7 +320,7 @@ public class GasCalculator {
         frame.setVisible(true);
         //-------------------------------------------
     }
-} //กดปุ่มจะเด้งไปที่เม๊ดต๊อด loadFile()
+}
 
 
 

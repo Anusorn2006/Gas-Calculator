@@ -42,6 +42,14 @@ public class ReadAndCal {
                 int sum = 150 * 150 * (fluid - (num[i] - 200)); // คำนวณ sum
                 double gaspercent = ((double) sum / area) * 100; // คำนวณ gaspercent
 
+
+                if(gaspercent > 100){
+                    gaspercent = 100;
+                }
+                else if (gaspercent < 0){
+                    gaspercent = 0;
+                }
+
                 // เก็บผลลัพธ์ในอาเรย์
                 sumv[i] = sum;
                 gasper[i] =  gaspercent; // แปลงค่า gaspercent เป็น int เพื่อเก็บในอาเรย์
