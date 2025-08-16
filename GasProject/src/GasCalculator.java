@@ -212,7 +212,7 @@ public class GasCalculator {
         // สีแดง - ไม่มีแก๊ส
         Panel CSummary1WR = new Panel(new BorderLayout());
         JButton space1C = new JButton();
-        space1C.setBackground(new Color(255, 0, 0));
+        space1C.setBackground(new Color(255, 36, 0));
         JPanel space1N = new JPanel();
         JPanel space1S = new JPanel();
         JPanel space1W = new JPanel();
@@ -221,7 +221,7 @@ public class GasCalculator {
         // สีเหลือง - แก๊สน้อยกว่า 50%
         JPanel CSummary1WY = new JPanel(new BorderLayout());
         JButton space2C = new JButton();
-        space2C.setBackground(new Color(255, 254, 0));
+        space2C.setBackground(new Color(251,	234,	100));
         JPanel space2N = new JPanel();
         JPanel space2S = new JPanel();
         JPanel space2W = new JPanel();
@@ -230,7 +230,7 @@ public class GasCalculator {
         // สีเขียว - แก๊สมากกว่า 50%
         JPanel CSummary1WG = new JPanel(new BorderLayout());
         JButton space3C = new JButton();
-        space3C.setBackground(new Color(0, 255, 0));
+        space3C.setBackground(new Color(106,	183,	72));
         JPanel space3N = new JPanel();
         JPanel space3S = new JPanel();
         JPanel space3W = new JPanel();
@@ -290,12 +290,8 @@ public class GasCalculator {
         panelSummary1C.add(CSummary1W, BorderLayout.WEST);
 
         panelSummary1N.add(VolumeOrarea, BorderLayout.CENTER);
-        panelSummary1N.add(new JPanel() {{
-            setBackground(new Color(149, 149, 149));
-        }}, BorderLayout.NORTH);
-        panelSummary1N.add(new JPanel() {{
-            setBackground(new Color(149, 149, 149));
-        }}, BorderLayout.SOUTH);
+        panelSummary1N.add(new JPanel() {{ setBackground(new Color(149, 149, 149));}}, BorderLayout.NORTH);
+        panelSummary1N.add(new JPanel() {{setBackground(new Color(149, 149, 149));}}, BorderLayout.SOUTH);
 
         panelSummary.add(panelSummary1C, BorderLayout.CENTER);
         panelSummary.add(panelSummary1N, BorderLayout.NORTH);
