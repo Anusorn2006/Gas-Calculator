@@ -72,6 +72,7 @@ public class GasCalculator {
 
 
         ButtonVolume buttonVolume = new ButtonVolume();
+
         for (int i = 0; i < 200; i++) {
             buttonVolume.buttons[i] = new JButton();
             buttonVolume.buttons[i].setBackground(new Color(255, 255, 255));

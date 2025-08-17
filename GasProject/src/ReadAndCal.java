@@ -36,10 +36,16 @@ public class ReadAndCal {
             gasper = new double[Number.length];  // อาเรย์เก็บค่า gaspercent (เปอร์เซ็นต์ของแก๊ส)
 
 
-
             // คำนวณและเก็บผลลัพธ์ในอาเรย์
             for (int i = 0; i < Number.length; i++) {
-                num[i] = Integer.parseInt(Number[i]);  // แปลงค่าจาก String เป็น int
+
+                try {
+                    num[i] = Integer.parseInt(Number[i]);
+                } catch (NumberFormatException e) {
+                    num[i] = 0;   // ถ้าไม่ใช่ตัวเลข ให้เซ็ตเป็น 0
+                }
+
+
                 int sum = 150 * 150 * (fluid - (num[i] - 200)); // คำนวณ sum
                 double gaspercent = ((double) sum / area) * 100; // คำนวณ gaspercent
 

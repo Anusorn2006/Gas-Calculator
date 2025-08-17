@@ -51,7 +51,8 @@ public class credit implements ActionListener {
 
         // สร้าง JPanel สำหรับรูปภาพบุคคลแรก (Four)
         JPanel panelFour = new JPanel(new BorderLayout());
-        ImageIcon Four = new ImageIcon("C:\\1-68\\oop\\GasProject\\src\\Four.jpg"); // โหลดรูปภาพ Four
+        ImageIcon Four = new ImageIcon(getClass().getResource("/resources/Four.jpg")); //โหลดรูป Four
+        // getClass คือ คืนค่า class ที่อยู๋  เสร็จแล้ว หาที่อยู๋ของไฟล์ แล้วส่งคืน
         Image imgFour = Four.getImage(); // ดึงภาพจาก ImageIcon
         Image scaledImg = imgFour.getScaledInstance(200, 250, Image.SCALE_SMOOTH); // ปรับขนาดภาพเป็น 200x250
         ImageIcon iconFour = new ImageIcon(scaledImg); // สร้าง ImageIcon ใหม่ที่มีขนาดที่ปรับแล้ว
@@ -65,7 +66,8 @@ public class credit implements ActionListener {
 
         // สร้าง JPanel สำหรับรูปภาพบุคคลที่สอง (Por)
         JPanel panelPor = new JPanel(new BorderLayout());
-        ImageIcon Por = new ImageIcon("C:\\1-68\\oop\\GasProject\\src\\Por.jpg"); // โหลดรูปภาพ Por
+        ImageIcon Por = new ImageIcon(getClass().getResource("/resources/Por.jpg")); // โหลดรูปภาพ Por
+        // getClass คือ คืนค่า class ที่อยู๋  เสร็จแล้ว หาที่อยู๋ของไฟล์ แล้วส่งคืน
         Image imgPor = Por.getImage(); // ดึงภาพจาก ImageIcon
         Image setPor = imgPor.getScaledInstance(200, 250, Image.SCALE_SMOOTH); // ปรับขนาดภาพเป็น 200x250
         ImageIcon iconPor = new ImageIcon(setPor); // สร้าง ImageIcon ใหม่ที่มีขนาดที่ปรับแล้ว
@@ -79,7 +81,8 @@ public class credit implements ActionListener {
 
         // สร้าง JPanel สำหรับรูปภาพบุคคลที่สาม (Tae)
         JPanel panalTae = new JPanel(new BorderLayout());
-        ImageIcon Tae = new ImageIcon("C:\\1-68\\oop\\GasProject\\src\\Tae.jpg"); // โหลดรูปภาพ Tae
+        ImageIcon Tae = new ImageIcon(getClass().getResource("/resources/Tae.jpg")); // โหลดรูปภาพ Tae
+        // getClass คือ คืนค่า class ที่อยู๋  เสร็จแล้ว หาที่อยู๋ของไฟล์ แล้วส่งคืน
         Image imgTae = Tae.getImage(); // ดึงภาพจาก ImageIcon
         Image setTae = imgTae.getScaledInstance(200, 250, Image.SCALE_SMOOTH); // ปรับขนาดภาพเป็น 200x250
         ImageIcon iconTae = new ImageIcon(setTae); // สร้าง ImageIcon ใหม่ที่มีขนาดที่ปรับแล้ว
@@ -125,5 +128,6 @@ public class credit implements ActionListener {
         creditpanal.add(mainpanal); // เพิ่มทั้งหมดลงใน creditpanal
 
         creditpanal.setVisible(true); // ทำให้ JFrame มองเห็น
+
     }
 }

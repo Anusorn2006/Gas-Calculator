@@ -2,6 +2,7 @@ import javax.swing.*;
 
 public class ButtonVolume {
     // ปุ่มทั้งหมด 200 ปุ่ม
+
     JButton[] buttons = new JButton[200];
 
     public void updateButtonColors(double[] gasper) {
